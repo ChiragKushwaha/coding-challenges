@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "tuple": "cpp",
+        "climits": "cpp",
+        "ctime": "cpp",
+        "xstring": "cpp",
+        "ostream": "cpp",
+        "numeric": "cpp",
+        "algorithm": "cpp",
+        "limits": "cpp",
+        "string": "cpp",
+        "cstring": "cpp",
+        "unordered_map": "cpp"
+    }
+}

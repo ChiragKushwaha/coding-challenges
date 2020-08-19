@@ -1,0 +1,565 @@
+if global it is automatically set to zero : bool is_composite[N] = {0};
+memset(is_composite, 0 or -1, sizeof(is_composite));
+
+/////////////////// FUNCTIONS ////////////////////
+sieve of eratosthenes: to list all primes <= n
+N*log(logN)
+for(int i = 2; i<=2; i++){
+    if(is_composite[i]) continue;
+    primes.push_back(i);
+    for(int j=i; j<=n;j+=i){
+        is_composite[j] = 1;
+    }
+}
+
+GCD use function of stl <algorithm> __gcd(m, n) where m and m are integers
+for implementing code
+int gcd(int a, int b) 
+{ 
+    if (a == 0) 
+        return b; 
+    return gcd(b % a, a); 
+} 
+
+LCM  of a, b 
+a*b = LCM(a,b) *HCF(a,b)
+HCF is nothing but GCD
+LCM(a,b) = a*b/HCF(a,b)
+int lcm(int a, int b){
+    return (a*b)/__gcd(m, n);
+}
+
+// C++ program to print print all primes smaller than 
+// n using segmented sieve 
+#include <bits/stdc++.h> 
+using namespace std; 
+
+// This functions finds all primes smaller than 'limit' 
+// using simple sieve of eratosthenes. It also stores 
+// found primes in vector prime[] 
+void simpleSieve(int limit, vector<int> &prime) 
+{ 
+	// Create a boolean array "mark[0..n-1]" and initialize 
+	// all entries of it as true. A value in mark[p] will 
+	// finally be false if 'p' is Not a prime, else true. 
+	bool mark[limit+1]; 
+	memset(mark, true, sizeof(mark)); 
+
+	for (int p=2; p*p<limit; p++) 
+	{ 
+		// If p is not changed, then it is a prime 
+		if (mark[p] == true) 
+		{ 
+			// Update all multiples of p 
+			for (int i=p*2; i<limit; i+=p) 
+				mark[i] = false; 
+		} 
+	} 
+
+	// Print all prime numbers and store them in prime 
+	for (int p=2; p<limit; p++) 
+	{ 
+		if (mark[p] == true) 
+		{ 
+			prime.push_back(p); 
+			cout << p << " "; 
+		} 
+	} 
+} 
+
+SEGMENTED SIEVE
+// Prints all prime numbers smaller than 'n' 
+void segmentedSieve(int n) 
+{ 
+	// Compute all primes smaller than or equal 
+	// to square root of n using simple sieve 
+	int limit = floor(sqrt(n))+1; 
+	vector<int> prime; 
+	simpleSieve(limit, prime); 
+
+	// Divide the range [0..n-1] in different segments 
+	// We have chosen segment size as sqrt(n). 
+	int low = limit; 
+	int high = 2*limit; 
+
+	// While all segments of range [0..n-1] are not processed, 
+	// process one segment at a time 
+	while (low < n) 
+	{ 
+		if (high >= n) 
+		high = n; 
+		
+		// To mark primes in current range. A value in mark[i] 
+		// will finally be false if 'i-low' is Not a prime, 
+		// else true. 
+		bool mark[limit+1]; 
+		memset(mark, true, sizeof(mark)); 
+
+		// Use the found primes by simpleSieve() to find 
+		// primes in current range 
+		for (int i = 0; i < prime.size(); i++) 
+		{ 
+			// Find the minimum number in [low..high] that is 
+			// a multiple of prime[i] (divisible by prime[i]) 
+			// For example, if low is 31 and prime[i] is 3, 
+			// we start with 33. 
+			int loLim = floor(low/prime[i]) * prime[i]; 
+			if (loLim < low) 
+				loLim += prime[i]; 
+
+			/* Mark multiples of prime[i] in [low..high]: 
+				We are marking j - low for j, i.e. each number 
+				in range [low, high] is mapped to [0, high-low] 
+				so if range is [50, 100] marking 50 corresponds 
+				to marking 0, marking 51 corresponds to 1 and 
+				so on. In this way we need to allocate space only 
+				for range */
+			for (int j=loLim; j<high; j+=prime[i]) 
+				mark[j-low] = false; 
+		} 
+
+		// Numbers which are not marked as false are prime 
+		for (int i = low; i<high; i++) 
+			if (mark[i - low] == true) 
+				cout << i << " "; 
+
+		// Update low and high for next segment 
+		low = low + limit; 
+		high = high + limit; 
+	} 
+} 
+
+// Driver program to test above function 
+int main() 
+{ 
+	int n = 100; 
+	cout << "Primes smaller than " << n << ":n"; 
+	segmentedSieve(n); 
+	return 0; 
+} 
+
+
+MUST KNOW
+a) Modulo arithmetic, Modulo exponentiation and Modulo inverse
+b) Lucas Theorem
+c) Chinese Remainder Theorem
+d) Series and sequences
+e) Catalan Numbers
+f) Pigeonhole Principle
+g) Inclusion Exclusion Principle
+
+//////////////////// END  /////////////////////
+
+/////////////////////// useful tips ////////////////////////
+0) template for programming fast 
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    //code
+    return 0;
+}
+
+1) checking if the number is even or odd without using % operator
+if(num & 1)
+    cout<<"ODD";
+else 
+    cout<<"EVEN";
+
+2) Fast multiplication or division by 2
+n = n << 1;  // multiply n with 2
+n = n >> 1;  // divide n by 2
+
+3) swapping of 2 numbers using xor
+a ^= b;
+b ^= a;
+a ^= b;
+
+4) avoiding use of strlen()
+// s[i] is the array simply putting s[i] means until there is element it runs
+for(i = 0; s[i]; i++){
+    // code
+}
+
+5) use of emplace_back()
+Instead of push_back() in STL emplace_back can be used because it is much faster and instead of allocating memory somewhere else and then appending it directly allocates memory in the container.
+
+6) Inbuilt GCD function: C++ has inbuilt GCD function and there is no need to explicitly code it. Syntax: __gcd(x, y);
+
+7) Using Inline functions
+
+8) Maximum size of the array: We must be knowing that the maximum size of array declared inside the main function is of the order of 10^6 but if you declare array globally then you can declare its size upto 10^7.
+
+9) Calculating the most significant digit: To calculate the most significant digit of any number log can be directly used to calculate it.
+Suppose the number is N then 
+Let double K = log10(N);
+now K = K - floor(K);
+int X = pow(10, K);
+X will be the most significant digit.
+
+10) Calculating the number of digits directly: To calculate number of digits in a number, instead of looping you can efficiently use log :
+Number of digits in N =floor(log10(N)) + 1;  
+
+11)  Efficient trick to know if a number is a power of 2 sing the normal technique of division the complexity comes out to be O(logN), but it can be solved using O(v) where v are the number of digits of number in binary form.
+
+/* Function to check if x is power of 2*/
+bool isPowerOfTwo (int x) 
+{ 
+  /* First x in the below expression is  
+    for the case when x is 0 */
+  return x && (!(x&(x-1))); 
+} 
+
+12)  C++11 has in built algorithms for following:
+       // are all of the elements positive?
+       all_of(first, first+n, ispositive()); 
+
+      // is there at least one positive element?
+      any_of(first, first+n, ispositive());
+
+      // are none of the elements positive?
+      none_of(first, first+n, ispositive()); 
+
+13) Copy Algorithm: used to copy elements from one container to another.
+
+int source[5] = {0, 12, 34, 50, 80};
+int target[5];
+// copy 5 elements from source to target
+copy_n(source, 5, target);
+
+14) The Iota Algorithm The algorithm iota() creates a range of sequentially increasing values, as if by assigning an initial value to *first, then incrementing that value using prefix ++. In the following listing, iota() assigns the consecutive values {10, 11, 12, 13, 14} to the array arr, and {‘a’, ‘b’, ‘c’} to the char array c[].
+
+int a[5] = {0}; 
+char c[3] = {0}; 
+  
+// changes a to {10, 11, 12, 13, 14} 
+iota(a, a+5, 10);  
+iota(c, c+3, 'a'); // {'a', 'b', 'c'}
+
+15) Initialization in Binary form: In C++ 11 assignments can also be made in binary form.
+// C++ code to demonstrate working of  
+// "binary" numbers 
+#include<iostream> 
+using namespace std; 
+int main() 
+{ 
+    auto number = 0b011; 
+    cout << number; 
+    return 0; 
+} 
+
+16) Use of “and” Though not a very productive one, this tip helps you to just use conditional operator and instead of typing &.
+// C++ code to demonstrate working of "and" 
+#include<iostream> 
+using namespace std; 
+int main() 
+{ 
+    int a = 10; 
+    if (a < 20 and a > 5) 
+      cout << "Yes"; 
+    return 0; 
+}
+
+17) Clear all bits from LSB to ith bit
+mask = ~((1 << i+1 ) - 1);
+x &= mask;
+Logic: To clear all bits from LSB to i-th bit, we have to AND x with mask having LSB to i-th bit 0. To obtain such mask, first left shift 1 i times. Now if we minus 1 from that, all the bits from 0 to i-1 become 1 and remaining bits become 0. Now we can simply take complement of mask to get all first i bits to 0 and remaining to 1.
+Example-
+x = 29 (00011101) and we want to clear LSB to 3rd bit, total 4 bits
+mask -> 1 << 4 -> 16(00010000)
+mask -> 16 – 1 -> 15(00001111)
+mask -> ~mask -> 11110000
+x & mask -> 16 (00010000)
+
+18) Clearing all bits from MSB to i-th bit
+
+mask = (1 << i) - 1;
+x &= mask;
+Logic: To clear all bits from MSB to i-th bit, we have to AND x with mask having MSB to i-th bit 0. To obtain such mask, first left shift 1 i times. Now if we minus 1 from that, all the bits from 0 to i-1 become 1 and remaining bits become 0.
+Example-
+x = 215 (11010111) and we want to clear MSB to 4th bit, total 4 bits
+mask -> 1 << 4 -> 16(00010000)
+mask -> 16 – 1 -> 15(00001111)
+x & mask -> 7(00000111)
+
+19)Upper case English alphabet to lower case
+ch |= ' ';
+
+20) Lower case English alphabet to upper case
+ch &= '_’ ;
+
+21) Count set bits in integer
+
+int countSetBits(int x) 
+{ 
+    int count = 0; 
+    while (x) 
+    { 
+        x &= (x-1); 
+        count++; 
+    } 
+    return count; 
+} 
+
+22)Find log base 2 of 32 bit integer
+
+int log2(int x) 
+{ 
+    int res = 0; 
+    while (x >>= 1) 
+        res++; 
+    return res; 
+} 
+
+23)Checking if a number is a power of two or not
+//where n is the number
+bool ans =(ceil(log2(n)) == floor(log2(n))); 
+
+24)Kth root of a Number
+int ans = pow(k, (1.0 / k) * (log(n) / log(k)));
+
+25)Check if N is a power of K or not
+int res1 = log(N) / log(K);
+double res2 = log(N) / log(K);
+cout <<  res2 == double(res1);
+
+26)To find the power of K greater than equal to and less than equal to N
+// Function to return the highest power 
+// of k less than or equal to n 
+int prevPowerofK(int n, int k) 
+{ 
+    int p = (int)(log(n) / log(k)); 
+    return (int)pow(k, p); 
+} 
+// Function to return the smallest power 
+// of k greater than or equal to n 
+int nextPowerOfK(int n, int k) 
+{ 
+    return prevPowerofK(n, k) * k; 
+} 
+
+27)To Find the position of rightmost set bit
+where n is the number
+int ans = log2(n & -n) + 1; 
+
+28) The watch macro is one of the most useful tricks ever.
+#define watch(x) cout << (#x) << " is " << (x) << endl
+
+29)Using typedef’s can save a lot of time of yours which you might spend re-writing the same snippet again and again.
+Example:
+typedef long long ll;
+typedef pair w;
+typedef vector va;
+typedef vector vb;
+typedef vector vc;
+
+30)Using “\n” for adding new line breaks is much faster than using “endl”.
+
+31)There’s an inbuilt function to evaluate the greatest common divisor of two numbers. It’s called __gcd() and it’s present in the algorithm header file.
+
+32)If you use ios::sync_with_stdio(false) at the beginning of your code, you’ll make cin and cout as fast as printf and scanf, but you’ll no longer be able to use neither printf nor scanf.
+
+33)Not using of 1LL or 1ll when needed
+int x = 1000000; 
+int y = 1000000; 
+// int is not directly promoted to long long use 1LL or 1ll to do it, if not used it might give some unexpected output
+long long int z = 1LL*x*y; 
+
+34)Not using cin.ignore() with getline
+int main() 
+{ 
+    int n; 
+    cin >> n; 
+    string s; 
+    //if not used will result in unexpected output
+    //example if not used
+   /* Input:
+4
+a b
+c d
+e f
+g h
+Output:
+0 
+3 a b
+3 c d
+3 e f
+
+// this happens "4\n" and \n is considered as one input
+after using 
+
+Because this leading newline inhibits the expected functionality of your program, it follows that it must be skipped our ignored somehow. One option is to call cin.ignore() after the first extraction. It will discard the next available character so that the newline is no longer intrusive.
+cin.ignore(n, delim);
+This extracts characters from the input sequence and discards them, until either n characters have been extracted, or one compares equal to delim.
+
+Input:
+4
+a b
+c d
+e f
+g h
+Output:
+3 a b
+3 c d
+3 e f
+3 g h */
+
+    cin.ignore(1, '\n'); 
+    for (int i = 0; i<n; ++i) 
+    { 
+        getline(cin, s); 
+        cout << s.length() << " "; 
+        cout << s << endl; 
+    } 
+    return 0; 
+} 
+
+35)if we don’t know how many lines of input are going to be there? We can use this then
+int main() 
+{ 
+    string s; 
+    while (getline(cin, s)) 
+    { 
+        if (s.empty()) 
+            break; 
+        cout << s << endl; 
+    } 
+    return 0; 
+} 
+
+36)A problem when taking remainders
+z = (z + x*y)%mod; // not a good practice
+ z = ((z%mod) + ((x%mod)*(y%mod))%mod) % mod; // good practice
+
+37)Initializer list :This type is used to access the values in a C++ initialization list. Here the objects of this type are automatically constructed by the compiler from initialization list declarations, which is a list of comma-separated elements enclosed in braces.
+template<typename T> 
+void printList(std::initializer_list<T> text) 
+{ 
+    for (const auto & value: text) 
+        std::cout << value << " "; 
+} 
+int main() 
+{ 
+    // Initialization list 
+    printList( {"One", "Two", "Three"} ); 
+    return 0; 
+}
+
+38)Assigning Maximum or Minimum value: This one is useful to avoid extra effort in writing max() or min() function.
+filter_none
+edit
+play_arrow
+
+brightness_4
+#include<iostream> 
+  
+// Call by reference is used in x 
+template<typename T, typename U> 
+static inline void amin(T &x, U y) 
+{ 
+    if (y < x) 
+        x = y; 
+} 
+  
+// call by reference is used in x 
+template<typename T, typename U> 
+static inline void amax(T &x, U y) 
+{ 
+    if (x < y) 
+        x = y; 
+} 
+  
+// Driver program to find the Maximum and Minimum value 
+int main() 
+{ 
+    int max_val = 0, min_val = 1e5; 
+    int array[]= {4, -5, 6, -9, 2, 11}; 
+  
+    for (auto const &val: array) 
+  
+        // Same as max_val = max (max_val, val) 
+        // Same as min_val = min (min_val,val) 
+        amax(max_val, val), amin (min_val, val); 
+  
+  
+    std::cout << "Max value = " << max_val << "\n"
+              << "Min value = " << min_val; 
+    return 0; 
+} 
+Output:
+
+Max value = 11
+Min value = -9
+
+
+39) Fast Input/Output in C/C++: In Competitive programming, you must read Input/Output as fast as possible to save valuable time.
+//to read numbers faster
+#include <bits/stdc++.h> 
+  
+template<typename T> void scan(T &x) 
+{ 
+    x = 0; 
+    bool neg = 0; 
+    register T c = getchar(); 
+  
+    if (c == '-') 
+        neg = 1, c = getchar(); 
+  
+    while ((c < 48) || (c > 57)) 
+        c = getchar(); 
+  
+    for ( ; c < 48||c > 57 ; c = getchar()); 
+  
+    for ( ; c > 47 && c < 58; c = getchar() ) 
+        x= (x << 3) + ( x << 1 ) + ( c & 15 ); 
+  
+    if (neg) x *= -1; 
+} 
+  
+template<typename T> void print(T n) 
+{ 
+    bool neg = 0; 
+  
+    if (n < 0) 
+        n *= -1, neg = 1; 
+  
+    char snum[65]; 
+    int i = 0; 
+    do
+    { 
+        snum[i++] = n % 10 + '0'; 
+        n /= 10; 
+    } 
+  
+    while (n); 
+    --i; 
+  
+    if (neg) 
+        putchar('-'); 
+  
+    while (i >= 0) 
+        putchar(snum[i--]); 
+  
+    putchar('\n'); 
+} 
+  
+// Driver Program 
+int main() 
+{ 
+    int value; 
+  
+    // Taking input 
+    scan(value); 
+  
+    // Printing output 
+    print(value); 
+    return 0; 
+} 
+
+40)Using Macros as for loop: Perhaps, it would not be good to use such macros as it would reduce the readability of code but for writing fast code you can take that risk!
+#define rep(i,n) for (i = 0; i < n; ++i) 
+#define REP(i,k,n) for (i = k; i <= n; ++i) 
+#define REPR(i,k,n) for (i = k; i >= n; --i) 
