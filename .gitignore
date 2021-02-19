@@ -200,9 +200,10 @@ captures/
 freeline.py
 freeline/
 freeline_project_description.json
-
+.idea
 */venv
-*/.idea
+*/*/*/.idea
+*/*/*/out
 */build
 # fastlane
 fastlane/report.xml
