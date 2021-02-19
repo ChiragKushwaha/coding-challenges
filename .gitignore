@@ -201,10 +201,9 @@ freeline.py
 freeline/
 freeline_project_description.json
 .idea
-*/venv
-*/*/*/.idea
-*/*/*/out
-*/build
+venv
+
+build
 out
 # fastlane
 fastlane/report.xml
