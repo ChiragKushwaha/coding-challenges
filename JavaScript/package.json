@@ -1,0 +1,19 @@
+{
+  "name": "javascript-programs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node programs/merge-sort-using-recursion.ts",
+    "cover": "type-coverage"
+  },
+  "author": "Chirag Kushwaha",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "ts-node": "^10.4.0",
+    "type-coverage": "^2.19.0",
+    "typescript": "^4.5.4"
+  }
+}
