@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node programs/merge-sort-using-recursion.ts",
+    "dev": "ts-node programs/combinator-sum-II.ts",
     "cover": "type-coverage"
   },
   "author": "Chirag Kushwaha",
