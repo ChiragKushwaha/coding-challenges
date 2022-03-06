@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node programs/combinator-sum-II.ts",
+    "dev": "ts-node get-mobile.ts",
     "cover": "type-coverage"
   },
   "author": "Chirag Kushwaha",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "csv-parser": "^3.0.0"
+  },
   "devDependencies": {
     "@types/node": "^17.0.8",
     "ts-node": "^10.4.0",
