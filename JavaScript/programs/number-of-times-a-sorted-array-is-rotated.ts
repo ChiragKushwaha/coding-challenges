@@ -1,5 +1,7 @@
 // mid element speciality that it is smaller than his left as well as right element
-function numberOfTimesASortedArrayIsRotated(array: Array<number>): number {
+export default function numberOfTimesASortedArrayIsRotated(
+  array: Array<number>
+): number {
   let start = 0,
     end = array.length - 1,
     size = array.length;
@@ -24,5 +26,5 @@ function numberOfTimesASortedArrayIsRotated(array: Array<number>): number {
   return -1;
 }
 
-const arr = [12, 14, 15, 16, 53, 2, 5, 6, 8];
-console.log(numberOfTimesASortedArrayIsRotated(arr));
+// const arr = [12, 14, 15, 16, 53, 2, 5, 6, 8];
+// console.log(numberOfTimesASortedArrayIsRotated(arr));

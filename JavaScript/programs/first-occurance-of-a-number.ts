@@ -1,7 +1,10 @@
-export default function firstOccurance(arr: Array<number>, n: number): number {
-  let start = 0,
-    end = arr.length - 1,
-    result = -1;
+export default function firstOccurance(
+  arr: Array<number>,
+  n: number,
+  start = 0,
+  end = arr.length - 1
+): number {
+  let result = -1;
 
   while (start <= end) {
     const mid = start + Math.floor((end - start) / 2);

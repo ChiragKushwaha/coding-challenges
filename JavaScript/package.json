@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node get-mobile.ts",
+    "dev": "ts-node programs/find-minimum-difference-element-in-a-sorted-array.ts",
     "cover": "type-coverage"
   },
   "author": "Chirag Kushwaha",
